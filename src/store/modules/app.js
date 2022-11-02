@@ -5,12 +5,17 @@ import { setTokenTime } from '@/utils/authorize'
 export default {
   namespaced: true,
   state: () => ({
-    token: localStorage.getItem('token') || ''
+    token: localStorage.getItem('token') || '', // token
+    siderType: true // 菜单栏状态
   }),
   mutations: {
     setToken(state, token) {
       state.token = token
       localStorage.setItem('token', token)
+    },
+    // 修改菜单栏状态
+    changeSiderType(state) {
+      state.siderType = !state.siderType
     }
   },
   actions: {

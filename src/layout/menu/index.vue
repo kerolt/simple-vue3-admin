@@ -7,6 +7,7 @@
     text-color="#fff"
     router
     unique-opened="true"
+    :collapse="!$store.getters.siderType"
   >
     <el-sub-menu
       :index="item.id"
