@@ -17,12 +17,16 @@ import { watch, ref } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
-const breadcrumbList = ref([])
+const breadcrumbList = ref([]) // 面包屑列表
 
+/**
+ * 给breadcrumbList赋值
+ */
 const initBreadcrumbList = () => {
   breadcrumbList.value = route.matched
 }
 
+// 监听route，每次route改变，重新设置breadcrumbList
 watch(
   route,
   () => {
@@ -34,6 +38,10 @@ watch(
   }
 )
 
+/**
+ * 添加当前路由
+ * @param {String} path
+ */
 const handleClick = (path) => {
   router.push(path)
 }
