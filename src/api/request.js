@@ -1,5 +1,7 @@
+import { diffTokenTime } from '@/utils/authorize'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import store from '@/store'
 
 /**
  * 自定义axios
@@ -14,6 +16,12 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   (config) => {
+    if (localStorage.getItem('token')) { // 检查是否有token
+      if (diffTokenTime()) { // 如果有并且失效了，将返回登录界面
+        store.dispatch('app/logout')
+        return Promise.reject(new Error('token失效'))
+      }
+    }
     config.headers.Authorization = localStorage.getItem('token') // 获取token
     return config
   },

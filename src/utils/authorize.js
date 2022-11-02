@@ -21,6 +21,6 @@ export const getTokenTime = () => {
  */
 export const diffTokenTime = () => {
   const curTime = Date.now()
-  const tokenTime = localStorage.getItem(TOKEN_TIME)
+  const tokenTime = getTokenTime()
   return curTime - tokenTime > TOKEN_TIME_VALUE
 }
