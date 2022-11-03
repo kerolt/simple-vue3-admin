@@ -14,7 +14,7 @@
         <el-icon :size="20" class="svg-container">
           <edit />
         </el-icon>
-        <el-input v-model="form.password" />
+        <el-input type="password" v-model="form.password" />
       </el-form-item>
       <el-button type="primary" class="login-button" @click="handleLogin"
         >登录</el-button
@@ -31,8 +31,8 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const form = ref({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 
 const formRef = ref(null)
