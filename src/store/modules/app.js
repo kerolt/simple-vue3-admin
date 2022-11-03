@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state: () => ({
     token: localStorage.getItem('token') || '', // token
-    siderType: true // 菜单栏状态
+    siderType: true, // 菜单栏状态
+    lang: localStorage.getItem('lang') || 'zh' // 当前语言
   }),
   mutations: {
     setToken(state, token) {
@@ -16,6 +17,9 @@ export default {
     // 修改菜单栏状态
     changeSiderType(state) {
       state.siderType = !state.siderType
+    },
+    changeLang(state, lang) {
+      state.lang = lang
     }
   },
   actions: {

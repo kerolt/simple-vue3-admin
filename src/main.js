@@ -7,6 +7,7 @@ import '@/styles/index.scss'
 import store from '@/store'
 import '@/router/permission'
 import * as ELIcon from '@element-plus/icons-vue'
+import i18n from './i18n'
 
 const app = createApp(App)
 
@@ -15,4 +16,4 @@ for (const iconName in ELIcon) {
   app.component(iconName, ELIcon[iconName])
 }
 
-app.use(store).use(router).use(ElementPlus).mount('#app')
+app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')
