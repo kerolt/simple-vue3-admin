@@ -2,9 +2,13 @@
   <el-card>
     <el-row :gutter="20" class="header">
       <el-col :span="7">
-        <el-input v-model="input" :placeholder="$t('table.placeholder')" />
+        <el-input
+          v-model="pageParams.query"
+          :placeholder="$t('table.placeholder')"
+          clearable
+        />
       </el-col>
-      <el-button type="primary" :icon="Search">{{
+      <el-button type="primary" :icon="Search" @click="initUserList">{{
         $t('table.search')
       }}</el-button>
       <el-button type="primary">{{ $t('table.adduser') }}</el-button>
@@ -55,6 +59,19 @@
         <el-button type="warning" :icon="Setting" circle />
       </el-table-column>
     </el-table>
+    <!-- 分页器 -->
+    <el-pagination
+      v-model:currentPage="pageParams.pagenum"
+      v-model:page-size="pageParams.pagesize"
+      :page-sizes="[2, 5, 10, 15]"
+      :small="small"
+      :disabled="disabled"
+      :background="background"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
   </el-card>
 </template>
 
@@ -64,18 +81,41 @@ import { ref } from 'vue'
 import { getUserList } from '@/api/user'
 
 const tableData = ref([])
-const params = ref({
+const total = ref(0)
+const pageParams = ref({
   query: '',
   pagenum: 1,
   pagesize: 2
 })
 
+/**
+ * 获取用户列表
+ */
 const initUserList = async () => {
-  const res = await getUserList(params.value)
+  const res = await getUserList(pageParams.value)
   tableData.value = res.users
+  total.value = res.total
   console.log(tableData.value)
 }
 initUserList()
+
+/**
+ * 改变页数大小
+ * @param {number} pagesize 页数大小
+ */
+const handleSizeChange = (pagesize) => {
+  pageParams.value.pagesize = pagesize
+  initUserList()
+}
+
+/**
+ * 改变当前页
+ * @param {number} pagenum 当前页
+ */
+const handleCurrentChange = (pagenum) => {
+  pageParams.value.pagenum = pagenum
+  initUserList()
+}
 </script>
 
 <style lang="scss" scoped>
