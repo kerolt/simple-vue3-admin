@@ -8,6 +8,7 @@ import store from '@/store'
 import '@/router/permission'
 import * as ELIcon from '@element-plus/icons-vue'
 import i18n from './i18n'
+import myData from './utils/my-day'
 
 const app = createApp(App)
 
@@ -15,5 +16,7 @@ const app = createApp(App)
 for (const iconName in ELIcon) {
   app.component(iconName, ELIcon[iconName])
 }
+
+myData(app)
 
 app.use(store).use(router).use(ElementPlus).use(i18n).mount('#app')
